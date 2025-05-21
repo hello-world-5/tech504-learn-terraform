@@ -1,7 +1,13 @@
 # Local .terraform directories
+# Ignore because contains large provider data (backend configs, module cache)
+# Not neccesarily sensitive
 .terraform/
 
 # .tfstate files
+# Logs which CAN CONTAIN CREDENTIALS.
+# If working as a team, team will need access to these. Share outside Git.
+# These files need to be lockable. Probably like DySim database blob storage.
+# On AWS, no native lock method, need DynamoDB.
 *.tfstate
 *.tfstate.*
 
@@ -37,3 +43,12 @@ override.tf.json
 terraform.rc
 
 .env
+
+
+# Things you don't want to .gitignore
+# the Dependency Lock File. .terraform.lock.hcl
+# Both providers and modules are updated separately to terraform
+# Only providers are locked with this file.
+# Stores things like:
+# 1. Consistent Provider Versions
+# 2.  Avoids Breaking Changes (if terraform gets updated)
